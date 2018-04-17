@@ -10,6 +10,7 @@
 #include "mem.h"
 #include "utils.h"
 #include "sig.h"
+#include "fork.h"
 
 static struct option long_options[] =
 {
@@ -30,8 +31,8 @@ void printUsage() {
 
 int main(int argc, char**argv)
 {
-    int ch;
-    char *mem;
+    int ch, zombies;
+    char *argument;
 
     if (argc >= 2) {
         if (stringMatch("version", argv[1])) {
@@ -49,21 +50,24 @@ int main(int argc, char**argv)
         {
             // short option 'm' - memory options
             case 'm':
-                mem = optarg;
-                int m = atoi(mem);
+                argument = optarg;
+                int m = atoi(argument);
                 printf("Attempting to allocate %d bytes of memory\n", m);
                 return 0;
                 break;
                 // short option 'w' - signal handling
             case 's':
-                mem = optarg;
+                argument = optarg;
 
                 return 0;
                 break;
             case 'e':
-                mem = optarg;
-
-                return 0;
+                argument = optarg;
+                zombies = atoi(argument);
+                int spawned = forkSelf(zombies);
+                if (spawned != 0) {
+                    printf("Failed to create zombies!\n");
+                }
                 break;
             case 'h':
                 printUsage();

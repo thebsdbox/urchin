@@ -1,0 +1,2 @@
+int forkSelf (int zombieCount);
+
