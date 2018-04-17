@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
+#include <unistd.h>
 
 #include "mem.h"
 #include "utils.h"
