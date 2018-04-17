@@ -8,6 +8,7 @@
 
 #include "mem.h"
 #include "utils.h"
+#include "sig.h"
 
 static struct option long_options[] =
 {
@@ -37,6 +38,9 @@ int main(int argc, char**argv)
             return 0;
         }
     }
+    
+    printf("Urchin has started as PID: %d\n", getpid());
+    
     while ((ch = getopt_long(argc, argv, "m:s:e:h", long_options, NULL)) != -1)
     {
         // check to see if a single character or long option came through
@@ -73,6 +77,7 @@ int main(int argc, char**argv)
     }
     
     printf("%s\n", getMemoryConfiguration());
-   
+    setSignalHander();
+    while(1);
     return 0;
 }
