@@ -1,0 +1,4 @@
+#Start from Scratch
+FROM gcc:latest
+#Copy binary
+COPY ../main.c main.c 
