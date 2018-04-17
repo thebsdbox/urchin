@@ -1,4 +1,11 @@
-#Start from Scratch
+#Start from GNU Compiler Collection Latest
 FROM gcc:latest
-#Copy binary
-COPY ../main.c main.c 
+
+#Get latest MASTER
+RUN git clone https://github.com/thebsdbox/urchin.git
+
+#Move to Urchin directory
+WORKDIR "/urchin"
+
+#Compile code, should be a makefile but meh
+RUN gcc -o urchin main.c mem.c utils.c
