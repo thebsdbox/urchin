@@ -43,19 +43,13 @@ char* getMemoryConfiguration() {
         return "Couldn't Read file [/proc/sys/vm/overcommit_memory]";
     }
     if (oom[0] == '0' ) {
-        printf("OOM Enabled (Mode 0)\n");
+        return("OOM Enabled (Mode 0)\n");
     }
     if (oom[0] == '1' ) {
-        printf("OOM Enabled (Mode 1)\n");
+        return("OOM Enabled (Mode 1)\n");
     }
     if (oom[0] == '2' ) {
-        printf("OOM Disabled\n");
+        return("OOM Disabled\n");
     }
-    if (stringMatch("2", &oom[0])) {
-        return "Over Commited Memory Disabled.";
-    }
-    if (oom[0] == '2' ) {
-        printf("check\n");
-    }
-    return "Unknown Memory"; // If Nil then there was an error reading the file
+    return "Unknown Memory Configuration in kernel"; // If Nil then there was an error reading the file
 }

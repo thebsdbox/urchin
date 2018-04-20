@@ -18,14 +18,15 @@ void sig_handler(int signo)
 }
 
 void setSignalHander() {
+    printf("Setting up Signal handlers to capture kill signals");
     if (signal(SIGUSR1, sig_handler) == SIG_ERR)
-        printf("\ncan't catch SIGUSR1\n");
+        printf("can't catch SIGUSR1\n");
     if (signal(SIGKILL, sig_handler) == SIG_ERR)
-        printf("\ncan't catch SIGKILL\n");
+        printf("can't catch SIGKILL\n");
     if (signal(SIGSTOP, sig_handler) == SIG_ERR)
-        printf("\ncan't catch SIGSTOP\n");
+        printf("can't catch SIGSTOP\n");
     if (signal(SIGTERM, sig_handler) == SIG_ERR)
-        printf("\ncan't catch SIGTERM\n");
+        printf("can't catch SIGTERM\n");
     if (signal(SIGINT, sig_handler) == SIG_ERR)
-        printf("\ncan't catch SIGINT\n");
+        printf("can't catch SIGINT\n");
 }
