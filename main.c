@@ -53,7 +53,12 @@ int main(int argc, char**argv)
                 argument = optarg;
                 int m = atoi(argument);
                 printf("Attempting to allocate %d bytes of memory\n", m);
-                return 0;
+                // Set the memory to allocate
+                setMem(m);
+                // Attempt to allocate the memory
+                if (allocateMemory() == 1) {
+                    return 1;
+                }
                 break;
                 // short option 'w' - signal handling
             case 's':

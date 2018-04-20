@@ -4,30 +4,36 @@
 
 #include "utils.h"
 
-int urchinMemory;
+int urchinMemorySize;
+char *urchinMemory;
 
 void setMem(int mem) {
-    urchinMemory = mem;
+    urchinMemorySize = mem;
 }
 
-int getMem() {
-    return urchinMemory;
+int getMemSize() {
+    return urchinMemorySize;
 }
 
-void allocateMemory() {
-    char *c = malloc(sizeof(char) * urchinMemory);
+int allocateMemory() {
+     urchinMemory = malloc(sizeof(char) * urchinMemorySize);
     
     // if c is allocated then populate the memory
-    if(c)
+    if(urchinMemory)
     {
         printf("Operating System allowed allocation of memory\n");
-        memset(c, 1, sizeof(char) * urchinMemory);
-        free(c);
+        memset(urchinMemory, 1, sizeof(char) * urchinMemorySize);
+        return 0;
     }
     else
     {
         printf("Operatings system denied memory allocation\n");
+        return 1;
     }
+}
+
+void freeMemory() {
+    free(urchinMemory);
 }
 
 char* getMemoryConfiguration() {
