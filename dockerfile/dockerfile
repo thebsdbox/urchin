@@ -1,5 +1,8 @@
 #Start from GNU Compiler Collection Latest
-FROM gcc:latest
+FROM alpine:latest
+
+# Get required packages
+RUN apk update; apk add gcc git musl-dev
 
 #Get latest MASTER
 RUN git clone https://github.com/thebsdbox/urchin.git
@@ -11,7 +14,7 @@ WORKDIR "/urchin"
 RUN gcc -s -Os -Wl,--discard-all -Wl,-O1 -Wall -o urchin main.c mem.c utils.c sig.c fork.c
 
 #Use a new clean image
-FROM ubuntu:latest 
+FROM alpine:latest 
 
 #Copy Urchin to clean image
 COPY --from=0 /urchin/urchin /urchin
