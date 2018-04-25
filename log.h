@@ -7,14 +7,15 @@
  * of the GPL license.  See the LICENSE file for details.
  */
 
-void setLoglevel(int);
+void setLoglevel(int log);
+void logInit(int log);
 
 // Logging commands
 
-int logDebug(); //5
-int logInfo();  //4
-int logWarn();  //3
-int logError(); //2
-int logFatal(); //1
+void logDebug(char *text); //5
+void logInfo(char *text);  //4
+void logWarn(char *text);  //3
+void logError(char *text); //2
+void logFatal(char *text); //1
 
 void logInit(); //Needed to enable logging
