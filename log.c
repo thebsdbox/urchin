@@ -1,4 +1,4 @@
-/* utils.h
+/* log.c
  *
  * Copyright (C) 2018 < Daniel Finneran, dan@thebsdbox.co.uk >
  * All rights reserved.
@@ -7,5 +7,11 @@
  * of the GPL license.  See the LICENSE file for details.
  */
 
-int stringMatch(char *string1, char *string2);
-char *readFile(char *fileName);
+#include <time.h>
+
+int loglevel;
+
+void logInit()
+{
+
+}

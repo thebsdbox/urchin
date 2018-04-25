@@ -1,5 +1,13 @@
-// Urchin - designed to be a pain to containers
-// danf@docker.com / daniel.finneran@gmail.com
+// Urchin - Painful for a container to step on
+
+/* main.c
+ *
+ * Copyright (C) 2018 < Daniel Finneran, dan@thebsdbox.co.uk >
+ * All rights reserved.
+ *
+ * This software may be modified and distributed under the terms
+ * of the GPL license.  See the LICENSE file for details.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +19,7 @@
 #include "utils.h"
 #include "sig.h"
 #include "fork.h"
+#include "httpd.h"
 
 static struct option long_options[] =
 {
@@ -18,6 +27,8 @@ static struct option long_options[] =
     {"signal", required_argument, NULL, 's'},
     {"exec", required_argument, NULL, 'e'},
     {"help", optional_argument, NULL, 'h'},
+    {"webport", required_argument, NULL, 'w'},
+
     {NULL, 0, NULL, 0}
 };
 
@@ -27,12 +38,15 @@ void printUsage() {
     printf("\t-m <bytes to allocate>\n");
     printf("\t-s <signal stuff>\n");         //TODO
     printf("\t-e <exec/fork stuff>\n");      //TODO
+    printf("\t-w <port for webserver>\n");   //TODO
+    printf("\t-c <content type>\n");   //TODO
+
 }
 
 int main(int argc, char**argv)
 {
-    int ch, zombies;
-    char *argument;
+    int ch, zombies, webEnabled;
+    char *argument, *contentType;
 
     if (argc >= 2) {
         if (stringMatch("version", argv[1])) {
@@ -43,7 +57,7 @@ int main(int argc, char**argv)
     
     printf("Urchin has started as PID: %d\n", getpid());
     
-    while ((ch = getopt_long(argc, argv, "m:s:e:h", long_options, NULL)) != -1)
+    while ((ch = getopt_long(argc, argv, "m:s:e:w:h", long_options, NULL)) != -1)
     {
         // check to see if a single character or long option came through
         switch (ch)
@@ -74,6 +88,24 @@ int main(int argc, char**argv)
                     printf("Failed to create zombies!\n");
                 }
                 break;
+           case 'w':
+                // Set a port to bind to
+                printf("Starting WebServer\n");
+                argument = optarg;
+                int port = atoi(argument);
+                setPort(port);
+        
+                 if (contentType) {
+                    setContentType(contentType);
+                }
+                // create a socket
+                createINETSocket();
+                // bind to that socket
+                bindToINETSocketWithPort();
+                // start listening on that socket
+                startListener();
+                webEnabled = 1;
+                break;
             case 'h':
                 printUsage();
                 return 0;
@@ -87,8 +119,12 @@ int main(int argc, char**argv)
     }
     
     printf("%s\n", getMemoryConfiguration());
-    setSignalHander();
+    //setSignalHander();
     while(1) {
+        if (webEnabled == 1) {
+            // check for connections and act accordingly 
+            acceptConnection();
+        }
         sleep(1);
     };
     return 0;
