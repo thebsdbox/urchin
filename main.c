@@ -21,6 +21,8 @@
 #include "fork.h"
 #include "httpd.h"
 
+#include "log.h"
+
 static struct option long_options[] =
 {
     {"mem", required_argument, NULL, 'n'},
@@ -45,16 +47,17 @@ void printUsage() {
 
 int main(int argc, char**argv)
 {
+    logInit(5);
     int ch, zombies, webEnabled;
     char *argument, *contentType;
 
     if (argc >= 2) {
         if (stringMatch("version", argv[1])) {
-            printf("\n -- Urchin -- \n -- v0.01 -- \n Contact dan@thebsdbox.co.uk\n\n");
+            logInfo("\n -- Urchin -- \n -- v0.01 -- \n Contact dan@thebsdbox.co.uk\n\n");
             return 0;
         }
     }
-    
+
     printf("Urchin has started as PID: %d\n", getpid());
     
     while ((ch = getopt_long(argc, argv, "m:s:e:w:h", long_options, NULL)) != -1)
