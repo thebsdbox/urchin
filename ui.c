@@ -13,13 +13,34 @@
 #include "log.h"
 #include "httpui.h"
 #include "mem.h"
+#include "utils.h"
 
 char *handleGetData(httpRequest *request)
 {
-    char *mem = getMemoryConfiguration();
-    unsigned long newBufferSize = strlen(mem) + strlen((char *)htmlfiles_index_html);
-    char buffer[newBufferSize];
-    sprintf(buffer, (char *)htmlfiles_index_html, mem );
+    char *updateText = NULL;
+    if (request->URI == NULL) {
+        updateText = "NULL";
+    }
+    
     logInfof("GET request for %s\n", request->URI);
+
+    if (stringMatch("/oom", request->URI)) {
+        updateText = getMemoryConfiguration();
+
+    }
+    if (stringMatch("/poop", request->URI)) {
+        updateText ="poop";
+    }
+    if (stringMatch("/hostname", request->URI)) {
+        updateText = readFile("/etc/hostname");
+    }
+    if (updateText == NULL) {
+        updateText = "¯\\_(ツ)_/¯";
+    }
+    
+    unsigned long newBufferSize = strlen(updateText) + strlen((char *)htmlfiles_index_html);
+    char buffer[newBufferSize];
+    sprintf(buffer, (char *)htmlfiles_index_html, updateText );
     return strdup(buffer);
+    
 }
