@@ -462,7 +462,7 @@ void handleInterrupt(int s){
     close(current_socket);
 }
 
-void setInterruptHandler()
+void setHTTPDInterruptHandler()
 {
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = handleInterrupt;
@@ -475,7 +475,7 @@ void setInterruptHandler()
 void startListenLoop()
 {
     // Enable the interupt handler, so that a ctrl-c will tidy up the socket
-    setInterruptHandler();
+    setHTTPDInterruptHandler();
     while (1) {
         acceptConnection();
     }
