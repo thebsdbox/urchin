@@ -1,14 +1,17 @@
 #Start from GNU Compiler Collection Latest
 FROM alpine:latest
 
-# Get required packages
-RUN apk update; apk add gcc git musl-dev
+# Get required packages (vim is needed for xxd (not busybox edition))
+RUN apk update; apk add gcc git musl-dev vim
 
 #Get latest MASTER
 RUN git clone https://github.com/thebsdbox/urchin.git
 
 #Move to Urchin directory
 WORKDIR "/urchin"
+
+#Build dynamic UI
+RUN xxd -i htmlfiles/index.html >> ui.h
 
 #Compile code, should be a makefile but meh
 RUN gcc -s -Os -Wl,--discard-all -Wl,-O1 -Wall -o urchin main.c mem.c utils.c sig.c fork.c log.c

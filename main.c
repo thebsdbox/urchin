@@ -49,7 +49,7 @@ int main(int argc, char**argv)
 {
     logInit(5);
     int ch, zombies, webEnabled;
-    char *argument, *contentType;
+    char *argument= NULL, *contentType = NULL;
 
     if (argc >= 2) {
         if (stringMatch("version", argv[1])) {
@@ -98,7 +98,7 @@ int main(int argc, char**argv)
                 int port = atoi(argument);
                 setPort(port);
         
-                 if (contentType) {
+                 if (contentType != NULL) {
                     setContentType(contentType);
                 }
                 // create a socket

@@ -25,6 +25,8 @@
 #include <stddef.h>
 #include "httpd.h"
 #include "utils.h"
+#include "ui.h"
+#include "log.h"
 
 // Function Prototypes
 int receive(int socket);
@@ -373,8 +375,8 @@ int receive(int socket)
     {
 
         printf("GET request for %s\n", request->URI);
-        sendHeader("200 OK", contentType, 11, connecting_socket);
-        sendString("<b>HELLO<b>",connecting_socket);
+        sendHeader("200 OK", contentType, htmlfiles_index_html_len, connecting_socket);
+        sendString((char *)htmlfiles_index_html,connecting_socket);
         if (postData) {
             sendHeader("200 OK", contentType, strlen(postData), connecting_socket);
             sendString(postData, connecting_socket);
