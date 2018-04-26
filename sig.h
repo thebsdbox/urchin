@@ -7,5 +7,5 @@
  * of the GPL license.  See the LICENSE file for details.
  */
 
-void setSignalHander();
+void setSignalHander(void);
 

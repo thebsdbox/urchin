@@ -47,8 +47,8 @@ void printUsage() {
 
 int main(int argc, char**argv)
 {
-    logInit(5);
-    int ch, zombies, webEnabled;
+    logInit();
+    int ch, zombies, webEnabled = 0;
     char *argument= NULL, *contentType = NULL;
 
     if (argc >= 2) {

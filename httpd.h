@@ -42,7 +42,7 @@ typedef struct {
 //#define OV_HTTPD_POST 3
 
 
-void startListenLoop();
+void startListenLoop(void);
 
 
 httpRequest *processHttpRequest(char *rawData);
@@ -51,10 +51,10 @@ void setContentType(char *type);
 
 int setHTTPResponse(char *messageBody, int responseCode);
 
-void createINETSocket();
-void bindToINETSocketWithPort();
-void startListener();
-void acceptConnection();
+void createINETSocket(void);
+void bindToINETSocketWithPort(void);
+void startListener(void);
+void acceptConnection(void);
 
 
 #ifndef HTTPDCALLBACK_H
