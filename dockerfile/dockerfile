@@ -14,7 +14,7 @@ WORKDIR "/urchin"
 RUN xxd -i htmlfiles/index.html >> httpui.h
 
 #Compile code, should be a makefile but meh
-RUN gcc --static -s -Os -Wl,--discard-all -Wl,-O1 -Wall -o urchin main.c mem.c utils.c sig.c fork.c log.c httpd.c
+RUN gcc --static -s -Os -Wl,--discard-all -Wl,-O1 -Wall -o urchin main.c mem.c utils.c sig.c fork.c log.c httpd.c ui.c
 
 #Use a new clean image
 FROM scratch
