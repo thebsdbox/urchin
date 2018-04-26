@@ -8,7 +8,7 @@
  */
 
 void setLoglevel(int log);
-void logInit(int log);
+void logInit(void); //Needed to enable logging
 
 // Logging commands
 
@@ -18,4 +18,4 @@ void logWarn(char *text);  //3
 void logError(char *text); //2
 void logFatal(char *text); //1
 
-void logInit(); //Needed to enable logging
+

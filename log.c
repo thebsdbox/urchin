@@ -10,6 +10,7 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "log.h"
 
 int loglevel;
@@ -20,7 +21,7 @@ void setLogLevel(int log)
     loglevel = log;
 }
 
-void logInit()
+void logInit(void)
 {
     struct timeval tv;
     gettimeofday(&tv, NULL);
