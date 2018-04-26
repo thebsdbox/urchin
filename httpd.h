@@ -60,4 +60,5 @@ void acceptConnection(void);
 #ifndef HTTPDCALLBACK_H
 #define HTTPDCALLBACK_H
 void SetPostFunction( char *(*postCallbackFunction)(httpRequest *));
+void SetGetFunction( char *(*postCallbackFunction)(httpRequest *));
 #endif

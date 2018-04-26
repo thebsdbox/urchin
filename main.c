@@ -20,6 +20,7 @@
 #include "sig.h"
 #include "fork.h"
 #include "httpd.h"
+#include "ui.h"
 
 #include "log.h"
 
@@ -47,6 +48,7 @@ void printUsage() {
 
 int main(int argc, char**argv)
 {
+
     logInit();
     int ch, zombies, webEnabled = 0;
     char *argument= NULL, *contentType = NULL;
@@ -107,6 +109,7 @@ int main(int argc, char**argv)
                 bindToINETSocketWithPort();
                 // start listening on that socket
                 startListener();
+                SetGetFunction(handleGetData);
                 webEnabled = 1;
                 break;
             case 'h':
