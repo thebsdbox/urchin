@@ -1,4 +1,4 @@
-/* ui.h
+/* httpdui.c
  *
  * Copyright (C) 2018 < Daniel Finneran, dan@thebsdbox.co.uk >
  * All rights reserved.
@@ -7,4 +7,3 @@
  * of the GPL license.  See the LICENSE file for details.
  */
 
-char *handleGetData(httpRequest *request);

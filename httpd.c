@@ -25,8 +25,8 @@
 #include <stddef.h>
 #include "httpd.h"
 #include "utils.h"
-#include "ui.h"
 #include "log.h"
+
 
 // Function Prototypes
 int receive(int socket);
@@ -44,9 +44,30 @@ httpResponse *response;
 
 char *postData;
 
+char *(*postCallback)(httpRequest *);
+char *(*getCallback)(httpRequest *);
+
+
 /*****************************************************************/
 /*                       Functions Start                         */
 /*****************************************************************/
+
+/*  Call back functions, allow the http server to send the raw text back to other libraries or code to process
+ *
+ */
+
+void SetPostFunction( char *(*postCallbackFunction)(httpRequest *))
+{
+    postCallback = postCallbackFunction;
+}
+/*  Call back functions, allow the http server to send the raw text back to other libraries or code to process
+ *
+ */
+
+void SetGetFunction( char *(*getCallbackFunction)(httpRequest *))
+{
+    getCallback = getCallbackFunction;
+}
 
 void setPort(size_t port)
 {
@@ -94,7 +115,6 @@ void startListener()
 
 void handle(int socket)
 {
-    
     if (receive((int)socket) < 0)
     {
         perror("Receive");
@@ -373,15 +393,28 @@ int receive(int socket)
     
     if ( stringMatch("GET", request->method) )				// GET
     {
-
-        logInfof("GET request for %s\n", request->URI);
-
-        sendHeader("200 OK", contentType, htmlfiles_index_html_len, connecting_socket);
-        sendString((char *)htmlfiles_index_html,connecting_socket);
-        if (postData) {
-            sendHeader("200 OK", contentType, strlen(postData), connecting_socket);
-            sendString(postData, connecting_socket);
+        if (getCallback != NULL) {
+            char *getData = getCallback(request);
+            if (getData == NULL) {
+                sendString("HTTP/1.0 500 Error\r\n\r\n", connecting_socket);
+                logFatal("Error parsing GET\n");
+            }
+            if (strlen(getData) == 0) {
+                logError("Response was zero bytes");
+                sendString("HTTP/1.0 500 Error\r\n\r\n", connecting_socket);
+            } else {
+                sendHeader("200 OK", contentType, strlen(getData), connecting_socket);
+                sendString(getData,connecting_socket);
+                free(getData);
+            }
         }
+
+//
+//        if (postData) {
+//            sendHeader("200 OK", contentType, strlen(postData), connecting_socket);
+//            sendString(postData, connecting_socket);
+//        }
+        return 0;
     }
     else if ( stringMatch("HEAD", request->method) )		// HEAD
     {
@@ -459,7 +492,7 @@ int receive(int socket)
 /*****************************************************************************/
 void handleInterrupt(int s){
     //printf("Caught signal %d\n",(int)s);
-    printf("\nExiting microWebStorage\n");
+    printf("\nExiting Urchin\n");
     close(current_socket);
 }
 
