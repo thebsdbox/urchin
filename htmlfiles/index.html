@@ -182,8 +182,15 @@ input 	{
 		
 		<div id="container">
 			<div id="header">
-				<h3 style="display: inline;"><span class="blue"> dan@home:~ $</span> find /google/ --name </h3>
-				<form method="get" action="https://www.google.com/search">
+				<h3 style="display: inline;"><span class="blue"> dan@home:~ $</span> set_memory_usage </h3>
+				<form method="get" action="./mem">
+					<input type="text" autofocus="autofocus" name="q" \>
+				</form>
+
+			</div>
+			<div id="header">
+				<h3 style="display: inline;"><span class="blue"> dan@home:~ $</span> set_memory_usage </h3>
+				<form method="get" action="./cpu">
 					<input type="text" autofocus="autofocus" name="q" \>
 				</form>
 
@@ -192,8 +199,8 @@ input 	{
 
 				<div class="linksbox">
 					<h3><span class="blue">dan@home:~\general $</span> ls</h3>
-		        	<a class="green" target="blank" href="http://localhost/oom">Out Of Memory</a>
-		         	<a class="green" target="blank" href="http://localhost/memlimit">Memory Limit</a>
+		        	<a class="green" target="blank" href="./oom">Out Of Memory</a>
+		         	<a class="green" target="blank" href="./memlimi">Memory Limit</a>
 					<a class="green" target="blank" href="https://news.ycombinator.com">"Hacker" News</a>
 					<a class="green" target="blank" href="https://www.theregister.co.uk">The Register</a>
                     <a class="green" target="blank" href="http://rarbgunblock.xyz/torrents.php">rargb</a>

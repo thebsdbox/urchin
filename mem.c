@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "utils.h"
+#include "log.h"
 
 int urchinMemorySize;
 char *urchinMemory;
@@ -49,6 +50,7 @@ char* getMemoryConfiguration() {
     char *oom;
     oom = readFile("/proc/sys/vm/overcommit_memory");
     if (oom == 0) {
+        logWarn("Unable to read OOM settings\n");
         return "Couldn't Read file [/proc/sys/vm/overcommit_memory]";
     }
     if (oom[0] == '0' ) {

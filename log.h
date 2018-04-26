@@ -14,6 +14,7 @@ void logInit(void); //Needed to enable logging
 
 void logDebug(char *text); //5
 void logInfo(char *text);  //4
+void logInfof(char* format,...); // 4
 void logWarn(char *text);  //3
 void logError(char *text); //2
 void logFatal(char *text); //1

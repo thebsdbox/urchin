@@ -374,7 +374,8 @@ int receive(int socket)
     if ( stringMatch("GET", request->method) )				// GET
     {
 
-        printf("GET request for %s\n", request->URI);
+        logInfof("GET request for %s\n", request->URI);
+
         sendHeader("200 OK", contentType, htmlfiles_index_html_len, connecting_socket);
         sendString((char *)htmlfiles_index_html,connecting_socket);
         if (postData) {

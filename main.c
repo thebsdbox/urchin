@@ -93,7 +93,7 @@ int main(int argc, char**argv)
                 break;
            case 'w':
                 // Set a port to bind to
-                printf("Starting WebServer\n");
+                logInfo("Starting WebServer\n");
                 argument = optarg;
                 int port = atoi(argument);
                 setPort(port);
@@ -120,7 +120,6 @@ int main(int argc, char**argv)
                 break;
         }
     }
-    
     printf("%s\n", getMemoryConfiguration());
     //setSignalHander();
     while(1) {
