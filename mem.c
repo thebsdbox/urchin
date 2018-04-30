@@ -14,14 +14,14 @@
 #include "utils.h"
 #include "log.h"
 
-int urchinMemorySize;
+long urchinMemorySize;
 char *urchinMemory;
 
-void setMem(int mem) {
+void setMem(long mem) {
     urchinMemorySize = mem;
 }
 
-int getMemSize() {
+long getMemSize() {
     return urchinMemorySize;
 }
 

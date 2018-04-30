@@ -7,6 +7,6 @@
  * of the GPL license.  See the LICENSE file for details.
  */
 
-void setMem(int mem);
+void setMem(long mem);
 char* getMemoryConfiguration(void);
 int allocateMemory(void);
