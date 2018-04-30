@@ -8,6 +8,8 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 
 #include "httpd.h"
 #include "log.h"
@@ -22,16 +24,33 @@ char *handleGetData(httpRequest *request)
         updateText = "NULL";
     }
     
+    char *parse = strdup(request->URI);
+    char *URI = strtok(parse, "?");
+    strtok(NULL, "=");
+    char *query = strtok(NULL, "q");
+    
+    
     logInfof("GET request for %s\n", request->URI);
 
-    if (stringMatch("/oom", request->URI)) {
+    if (stringMatch("/oom", URI)) {
         updateText = getMemoryConfiguration();
-
     }
-    if (stringMatch("/poop", request->URI)) {
+    if (stringMatch("/poop", URI)) {
         updateText ="poop";
     }
-    if (stringMatch("/hostname", request->URI)) {
+    if (stringMatch("/mem", URI))
+    {
+        if (query) {
+            char *eptr;
+            long result = strtol(query, &eptr, 10);
+            setMem(result);
+            allocateMemory();
+            logInfof("Allocating %s bytes of memory\n", query);
+            updateText = query;
+        }
+    }
+    if (stringMatch("/hostname", URI)) {
+        
         updateText = readFile("/etc/hostname");
     }
     if (updateText == NULL) {
@@ -44,3 +63,8 @@ char *handleGetData(httpRequest *request)
     return strdup(buffer);
     
 }
+
+//char *getResponse(char *uri, char *query)
+//{
+//
+//}
