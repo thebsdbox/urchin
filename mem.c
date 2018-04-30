@@ -31,13 +31,13 @@ int allocateMemory() {
     // if c is allocated then populate the memory
     if(urchinMemory)
     {
-        printf("Operating System allowed allocation of memory\n");
+        logInfo("Operating System allowed allocation of memory\n");
         memset(urchinMemory, 1, sizeof(char) * urchinMemorySize);
         return 0;
     }
     else
     {
-        printf("Operatings system denied memory allocation\n");
+        logError("Operatings system denied memory allocation\n");
         return 1;
     }
 }
