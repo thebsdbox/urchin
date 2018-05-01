@@ -24,6 +24,13 @@ To run `urchin` start the container through Docker.
 docker run -it --rm urchin:latest /urchin -m 1076277500
 ```
 
+**Start web UI on port 8080**
+
+```
+docker run -it --rm urchin:latest /urchin -w 8080
+```
+
+
 **Create 10 forked zombies**
 
 ```
