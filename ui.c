@@ -16,6 +16,7 @@
 #include "httpui.h"
 #include "mem.h"
 #include "utils.h"
+#include "fork.h"
 
 char *handleGetData(httpRequest *request)
 {
@@ -50,9 +51,20 @@ char *handleGetData(httpRequest *request)
         }
     }
     if (stringMatch("/hostname", URI)) {
-        
         updateText = readFile("/etc/hostname");
     }
+    
+    //Process GETs
+    
+    if (stringMatch("/child", URI)) {
+        forkSelf(1);
+        updateText = "BRAAAAAAAAINZ";
+    }
+    
+    if (stringMatch("/becomeparent", URI)) {
+        becomeParent();
+    }
+    
     if (updateText == NULL) {
         updateText = "¯\\_(ツ)_/¯";
     }
