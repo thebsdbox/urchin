@@ -8,4 +8,4 @@
  */
 
 int forkSelf (int zombieCount);
-
+void becomeParent(void);
