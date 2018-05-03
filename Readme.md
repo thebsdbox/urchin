@@ -29,7 +29,7 @@ docker run -it --rm urchin:latest /urchin -m 1076277500
 ```
 docker run -it --rm urchin:latest /urchin -w 8080
 ```
-
+![](./htmlfiles/ui.jpg)
 
 **Create 10 forked zombies**
 
